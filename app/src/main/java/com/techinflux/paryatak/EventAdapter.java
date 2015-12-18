@@ -13,15 +13,13 @@ import android.widget.TextView;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by ravi on 12/14/15.
- */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     List<MainActivity.Event> events;
     Context context;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public EventAdapter(List<MainActivity.Event> events) {
+    // Provide a suitable constructor (depends on the kind of dataset) context is reqd for onclick listener
+    public EventAdapter(Context context, List<MainActivity.Event> events) {
+        this.context = context;
         this.events = events;
     }
     // Create new views (invoked by the layout manager)
@@ -44,10 +42,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.eventName.setText(events.get(position).name);
         holder.eventDate.setText(events.get(position).date);
         holder.eventPlace.setText(events.get(position).place);
+        //get the current activity context to add onclicklistener
         holder.eventInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context = v.getContext();
                 Intent intent = new Intent(context, EventInfoActivity.class);
                 context.startActivity(intent);
             }
